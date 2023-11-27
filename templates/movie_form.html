@@ -1,0 +1,52 @@
+{% extends 'home.html' %}
+{% load bootstrap %}
+{% block title %} Movies form {% endblock %}
+{% block site %}
+    <div class="card" style="width: 32rem; float: left; margin-right: 1rem;">
+      <div class="card-body">
+          {% if new %}
+            <h5 class="card-title">New movie</h5>
+          {% else %}
+            <h5 class="card-title">Edit movie</h5>
+          {% endif %}
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                {{ form_more_info|bootstrap }}
+                {% if new %}
+                    <button type="submit" class="btn btn-primary">Add movie <i class="fa-solid fa-right-to-bracket" style="color: #511f48;"></i></button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary">Edit movie <i class="fa-solid fa-right-to-bracket" style="color: #511f48;"></i></button>
+                {% endif %}
+            </form>
+      </div>
+    </div>
+    <div class="card" style="width: 32rem; float: left; margin-right: 1rem;">
+        <div class="card-body">
+            <h5 class="card-title">Rate movie</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form_rating|bootstrap }}
+                    <button type="submit" class="btn btn-primary">Rate</button>
+            </form>
+        </div>
+    </div>
+    <div class="card" style="width: 32rem; float: left; margin-right: 1rem;">
+        <div class="card-body">
+            <h5 class="card-title">Add actor</h5>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form_actor|bootstrap }}
+                    <button type="submit" class="btn btn-primary">Add</button>
+            </form>
+        </div>
+    </div>
+    {% for review in reviews %}
+        <h4>Stars: {{ review.stars }}</h4>
+        <p>Review: {{ review.review }}</p>
+    {% endfor %}
+    {% for actor in actors %}
+        <h5>{{ actor }}</h5>
+    {% endfor %}
+    <a href="{% url 'all_movies' %}">Return</a>
+{% endblock %}

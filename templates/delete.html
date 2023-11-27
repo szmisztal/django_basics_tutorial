@@ -1,0 +1,14 @@
+{% extends 'home.html' %}
+{% block title %} Delete movie {% endblock %}
+{% block site %}
+    <div class="card" style="width: 32rem;">
+      <div class="card-body">
+          <h5 class="card-title">Do you really want to delete {{ movie.title }} ?</h5>
+          <form method = "post">
+              {% csrf_token %}
+              <button type = "submit" class="btn btn-danger">Delete movie</button>
+          </form>
+      </div>
+    </div>
+    <a href="{% url 'all_movies' %}">Return</a>
+{% endblock %}
